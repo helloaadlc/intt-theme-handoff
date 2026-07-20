@@ -1,29 +1,35 @@
 # INTT — Instrucciones de instalación
 
 > **⚠️ El orden de los pasos no es opcional.**
-> El tema y el plugin deben estar activados **antes** de importar el contenido.
-> Si se importa el XML primero, WordPress descartará silenciosamente los registros de
-> `oficina`, `tramite` y `alerta_intt`, sin mostrar ninguna advertencia.
+> Antes de importar el archivo XML, deben estar activos:
+> - **ACF Pro** y el **tema `intt-theme`** — juntos registran los tipos de contenido
+>   `oficina` y `tramite` (definidos en `intt-theme/acf-json/`).
+> - El **tema** también registra el tipo de contenido `alerta_intt`.
+>
+> Si se importa el XML antes de activar ambos, WordPress descartará silenciosamente
+> los 155+ registros de `oficina`, `tramite` y `alerta_intt`, sin mostrar ninguna advertencia.
 
----
 
 ## 1. Contenido del paquete
 
 | Archivo / carpeta | Descripción |
 |---|---|
 | `intt-theme/` | Tema de bloques (FSE). Incluye `acf-json/`, que registra tipos de contenido, taxonomías y campos. |
-| `intt-blocks/` | Plugin propio. Registra el tipo de contenido `alerta_intt` y cuatro bloques personalizados. |
+| `intt-blocks/` | Plugin propio. Aporta cuatro bloques personalizados (megamenu, megamenu-col, nav-item, organization-chart). No interviene en la importación. |
 | `uploads/` | Copia de respaldo de los archivos multimedia (ver sección 4). |
 | `advanced-custom-fields-pro.zip` | Instalador de ACF Pro. |
 | `intt.WordPress.2026-07-20.xml` | Contenido exportado en formato WXR. |
 
 **Requisitos:** WordPress 6.5+, PHP 8.0+, ACF Pro (incluido).
 
-> **Licencia de ACF Pro:** para recibir actualizaciones y soporte, INTT debe adquirir su
-> propia licencia en advancedcustomfields.com/pro y registrarla en
-> **Ajustes → Actualizaciones de ACF PRO**.
+> **Licencia de ACF Pro:** la licencia corre por nuestra cuenta. La clave se envía por
+> separado (no se incluye en el repositorio por seguridad). Para activarla:
+> **ACF → Actualizaciones** → pegar la clave → **Activar licencia**.
+>
+> **URL de staging:** no es requisito, pero si montan esto en una URL con "staging" en
+> el dominio, la activación de la licencia de ACF es más simple (no consume una
+> activación). Si es posible, avísenme el dominio y lo configuro de mi lado.
 
----
 
 ## 2. Instalación
 
@@ -48,7 +54,11 @@ intt-blocks/  →  wp-content/plugins/intt-blocks/
 
 **Plugins** → activar **INTT Blocks**.
 
-*Verificación:* debe aparecer **Alertas** en el menú lateral.
+Este plugin no interviene en la importación, pero es necesario para que los bloques
+personalizados del editor funcionen. Sin él, las páginas que los usan mostrarán
+bloques rotos.
+
+*Verificación:* en el editor de bloques deben aparecer los bloques de INTT.
 
 **Paso 5 — Importar el contenido**
 
@@ -58,7 +68,6 @@ intt-blocks/  →  wp-content/plugins/intt-blocks/
 4. **Marcar la casilla "Descargar e importar archivos adjuntos".**
 5. Ejecutar la importación.
 
----
 
 ## 3. Verificación
 
@@ -76,7 +85,6 @@ Además: abrir una oficina y un trámite y confirmar que los campos personalizad
 > En **ACF → Grupos de campos** puede aparecer el aviso *"Sincronización disponible"*.
 > Es normal y se puede sincronizar sin riesgo.
 
----
 
 ## 4. Archivos multimedia
 
@@ -87,7 +95,6 @@ Si no aparecen, copiar el contenido de `uploads/` a `wp-content/uploads/` respet
 estructura de subcarpetas, y usar un plugin como **Media Sync** para registrarlas en la
 biblioteca de medios.
 
----
 
 ## 5. Notas técnicas
 
@@ -104,14 +111,13 @@ biblioteca de medios.
 - **Tema de bloques (FSE):** las plantillas se editan desde **Apariencia → Editor**, no
   mediante archivos PHP.
 
----
 
 ## Resumen del orden
 
 ```
 1. Copiar intt-theme/ y intt-blocks/
-2. Instalar + activar ACF Pro
-3. Activar el tema           ← registra oficina, tramite, taxonomías, campos
-4. Activar el plugin         ← registra alerta_intt
-5. Importar intt.WordPress.2026-07-20.xml  ← SIEMPRE AL FINAL
+2. Instalar + activar ACF Pro   ← necesario para oficina y tramite
+3. Activar el tema              ← carga acf-json (campos, taxonomías) + registra alerta_intt
+4. Activar el plugin            ← bloques del editor (no afecta la importación)
+5. Importar el XML              ← SIEMPRE AL FINAL
 ```
