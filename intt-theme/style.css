@@ -1,0 +1,241 @@
+/*
+Theme Name: INTT Theme
+Description: Portal institucional del INTT — Instituto Nacional de Transporte Terrestre.
+Version: 1.0.0
+Requires at least: 6.4
+Tested up to: 6.7
+Requires PHP: 8.0
+Text Domain: intt-theme
+*/
+
+/* ── Barra de navegación principal ───────────────────────────────────────── */
+
+.intt-site-nav .alignwide.is-layout-flex {
+	min-height: 78px;
+	align-items: stretch;
+}
+
+.intt-site-nav .wp-block-site-logo,
+.intt-site-nav .wp-block-site-logo a {
+	display: flex;
+	align-items: center;
+}
+
+.intt-site-nav .wp-block-group.is-nowrap:not(.alignwide) {
+	align-items: stretch;
+}
+
+.intt-site-nav .wp-block-buttons {
+	display: flex;
+	align-items: center;
+}
+
+
+@media (max-width: 782px) {
+	.intt-site-nav .wp-block-buttons {
+		display: none;
+	}
+}
+
+
+/* ── Barra de alerta ──────────────────────────────────────────────────────── */
+
+.intt-alert {
+	width: 100%;
+}
+
+.intt-alert__inner {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: var(--wp--preset--spacing--sp-16);
+	max-width: var(--wp--style--global--wide-size);
+	margin-inline: auto;
+	padding: var(--wp--preset--spacing--sp-40) var(--wp--preset--spacing--sp-24);
+}
+
+.intt-alert__main {
+	display: flex;
+	flex-direction: column;
+	gap: var(--wp--preset--spacing--sp-8);
+}
+
+.intt-alert__header {
+	display: flex;
+	align-items: center;
+	gap: var(--wp--preset--spacing--sp-8);
+}
+
+.intt-alert__icon {
+	flex-shrink: 0;
+	display: flex;
+}
+
+.intt-alert__title {
+	font-weight: 600;
+	font-size: var(--wp--preset--font-size--heading-4);
+}
+
+.intt-alert__body {
+	margin: 0;
+	font-size: var(--wp--preset--font-size--body-1);
+}
+
+.intt-alert__close {
+	flex-shrink: 0;
+	background: none;
+	border: none;
+	cursor: pointer;
+	font-size: var(--wp--preset--font-size--heading-3);
+	padding: 0;
+	color: inherit;
+	opacity: 0.7;
+}
+
+.intt-alert__close:hover {
+	opacity: 1;
+}
+
+.intt-alert--info {
+	background-color: var(--wp--preset--color--azul-electrico-50);
+	color: var(--wp--preset--color--azul-electrico-700);
+}
+
+.intt-alert--warning {
+	background-color: var(--wp--preset--color--amarillo-oro-50);
+	color: var(--wp--preset--color--amarillo-oro-800);
+}
+
+.intt-alert--emergency {
+	background-color: var(--wp--preset--color--rojo-carmesi-50);
+	color: var(--wp--preset--color--rojo-carmesi-700);
+}
+
+.intt-alert-dismissed .intt-alert {
+	display: none;
+}
+
+/* ── Hero: tipografía responsiva ─────────────────────────────────────────── */
+
+.intt-hero__titulo {
+    font-size: clamp(2.75rem, 4vw + 1rem, 4.5rem) !important;
+    max-width: 15ch;
+}
+
+.intt-hero__subtitulo {
+    max-width: 40ch;
+}
+
+.intt-radio__titulo {
+    font-size: clamp(2.25rem, 3vw + 1rem, 3.4rem) !important;
+    max-width: 12ch;
+		font-weight: 700;
+}
+
+/* ── Tarjetas de trámite ──────────────────────────────────────────────────── */
+
+.intt-tarjeta-tramite {
+    overflow: hidden;
+    border-radius: var(--wp--custom--radius--lg);
+    border: 1px solid var(--wp--preset--color--gris-300);
+    background: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.intt-tarjeta-tramite__imagen img {
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    width: 100%;
+    display: block;
+}
+
+.intt-tarjeta-tramite__contenido {
+    flex: 1;
+}
+
+.wp-block-heading a {
+    font-weight: inherit;
+}
+
+
+/* ── Grids de trámites: responsividad ────────────────────────────────────── */
+
+@media (max-width: 781px) {
+    .intt-grid-tramites {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
+@media (max-width: 479px) {
+    .intt-grid-tramites {
+        grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+    }
+}
+
+/* ── Pie de página: listas de navegación ────────────────────────────────── */
+
+.intt-footer-nav .wp-block-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+/* ── Taxonomía: barra lateral y lista ────────────────────────────────────── */
+
+.intt-taxonomy-sidebar .wp-block-heading {
+    margin-block-end: var(--wp--preset--spacing--sp-16);
+}
+
+.intt-taxonomy-sidebar .wp-block-categories,
+.intt-taxonomy-sidebar .wp-block-categories ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.wp-block-categories .current-cat > a,
+.intt-estado-list .current-cat > a {
+    color: var(--wp--preset--color--azul-electrico-600);
+    font-weight: 600;
+}
+
+.wp-block-categories .count {
+    color: var(--wp--preset--color--gris-400);
+}
+
+.intt-estado-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.intt-oficina-card > * {
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+.intt-oficina-card > * + * {
+    margin-block-start: var(--wp--preset--spacing--sp-8);
+}
+
+@media (max-width: 782px) {
+    .intt-taxonomy-sidebar {
+        display: none;
+    }
+}
+
+@media (min-width: 783px) {
+    .intt-tramite-list {
+        max-width: 60%;
+    }
+}
+
+@media (max-width: 600px) {
+    .intt-noticias-item {
+        flex-direction: column;
+    }
+    .intt-noticias-item .wp-block-post-featured-image {
+        flex-basis: auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+}

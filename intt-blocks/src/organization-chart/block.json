@@ -1,0 +1,13 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "intt/organization-chart",
+	"title": "Organigrama INTT",
+	"category": "theme",
+	"icon": "networking",
+	"description": "Organigrama institucional con niveles jerárquicos y columnas auto-balanceadas.",
+	"textdomain": "intt-blocks",
+	"supports": { "html": false, "align": ["wide", "full"] },
+	"style": "file:./style.css",
+	"render": "file:./render.php"
+}

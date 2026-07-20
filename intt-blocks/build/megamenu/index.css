@@ -1,0 +1,24 @@
+/*!*************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/megamenu/editor.scss ***!
+  \*************************************************************************************************************************************************************************************************************************************************/
+.intt-megamenu {
+  display: block;
+}
+
+.wp-block-intt-megamenu-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.intt-megamenu__heading {
+  font-weight: var(--wp--custom--font-weight--bold);
+  color: var(--wp--preset--color--azul-marino-700);
+}
+
+.intt-megamenu .intt-megamenu__mobile-header {
+  display: block;
+  border-bottom: 1px solid var(--wp--preset--color--gris-300);
+}
+
+/*# sourceMappingURL=index.css.map*/

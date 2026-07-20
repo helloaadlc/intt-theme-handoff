@@ -1,0 +1,24 @@
+// El panel está oculto en el frontend via style.scss.
+// En el editor lo mostramos siempre para que sea editable.
+.intt-megamenu {
+	display: block;
+}
+
+
+// render.php no aplica en el editor — remover viñetas directamente
+.wp-block-intt-megamenu-col ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+
+.intt-megamenu__heading {
+	font-weight: var(--wp--custom--font-weight--bold);
+	color: var(--wp--preset--color--azul-marino-700);
+}
+
+.intt-megamenu .intt-megamenu__mobile-header {
+	display: block;
+	border-bottom: 1px solid var(--wp--preset--color--gris-300);
+}

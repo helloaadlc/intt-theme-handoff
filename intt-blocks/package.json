@@ -1,0 +1,26 @@
+{
+	"name": "intt-blocks",
+	"version": "1.0.0",
+	"description": "Bloques personalizados para el portal del INTT.",
+	"author": "INTT",
+	"license": "GPL-2.0-or-later",
+	"main": "build/index.js",
+	"scripts": {
+		"build": "cross-env NODE_ENV=development wp-scripts build --webpack-copy-php --blocks-manifest",
+		"format": "cross-env NODE_ENV=development wp-scripts format",
+		"lint:css": "cross-env NODE_ENV=development wp-scripts lint-style",
+		"lint:js": "cross-env NODE_ENV=development wp-scripts lint-js",
+		"packages-update": "cross-env NODE_ENV=development wp-scripts packages-update",
+		"plugin-zip": "cross-env NODE_ENV=development wp-scripts plugin-zip",
+		"start": "cross-env NODE_ENV=development wp-scripts start --webpack-copy-php --blocks-manifest"
+	},
+	"dependencies": {
+		"@wordpress/block-editor": "latest",
+		"@wordpress/blocks": "latest",
+		"@wordpress/i18n": "latest"
+	},
+	"devDependencies": {
+		"@wordpress/scripts": "^32.4.1",
+		"cross-env": "^10.1.0"
+	}
+}

@@ -1,0 +1,208 @@
+.intt-organization-chart {
+	--c-estrategico: #9C2B3A;
+	--c-asesoria: #1C4B6E;
+	--c-sustantivo: #24684A;
+	--c-bg: #F3F2EC;
+	--c-panel: #FFFFFF;
+	--c-border: #E2DFD5;
+	--c-ink: #21242A;
+
+	position: relative;
+	max-width: 980px;
+	margin: 0 auto;
+	color: var(--c-ink);
+	padding: 40px 20px;
+}
+
+.intt-org-spine {
+	position: absolute;
+	left: 50%;
+	top: 0;
+	bottom: 0;
+	width: 4px;
+	transform: translateX(-50%);
+	z-index: 0;
+	border-radius: 4px;
+	opacity: .9;
+	background: linear-gradient(
+		to bottom,
+		var(--c-estrategico) 0%,  var(--c-estrategico) 19%,
+		var(--c-asesoria)    19%, var(--c-asesoria)    60%,
+		var(--c-sustantivo)  60%, var(--c-sustantivo)  100%
+	);
+}
+
+.intt-org-tier {
+	position: relative;
+	padding-bottom: 64px;
+	z-index: 1;
+}
+
+.intt-org-tier:last-of-type {
+	padding-bottom: 0;
+}
+
+.intt-org-tag-wrap {
+	text-align: center;
+}
+
+.intt-org-tag {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	font-weight: 700;
+	font-size: 11px;
+	letter-spacing: .14em;
+	text-transform: uppercase;
+	color: #fff;
+	padding: 7px 14px;
+	border-radius: 99px;
+	margin-bottom: 28px;
+}
+
+.intt-org-tier--exec    .intt-org-tag { background: var(--c-estrategico); }
+.intt-org-tier--support .intt-org-tag { background: var(--c-asesoria); }
+.intt-org-tier--core    .intt-org-tag { background: var(--c-sustantivo); }
+
+.intt-org-col-single {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 34px;
+}
+
+.intt-org-node-single {
+	position: relative;
+	width: 100%;
+	max-width: 380px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.intt-org-dot {
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+	background: var(--c-estrategico);
+	border: 3px solid var(--c-bg);
+	box-shadow: 0 0 0 2px var(--c-estrategico);
+	margin-bottom: 12px;
+}
+
+.intt-org-col-two {
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+}
+
+.intt-org-row {
+	display: grid;
+	grid-template-columns: 1fr 32px 1fr;
+	align-items: center;
+	position: relative;
+	min-height: 64px;
+}
+
+.intt-org-row::before {
+	content: '';
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 32px;
+	height: 2px;
+	transform: translate(-50%, -50%);
+	z-index: 0;
+}
+
+.intt-org-tier--support .intt-org-row::before { background: var(--c-asesoria); }
+.intt-org-tier--core    .intt-org-row::before { background: var(--c-sustantivo); }
+
+.intt-org-node-dot {
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+	border: 3px solid var(--c-bg);
+	justify-self: center;
+	z-index: 2;
+}
+
+.intt-org-tier--support .intt-org-node-dot {
+	background: var(--c-asesoria);
+	box-shadow: 0 0 0 2px var(--c-asesoria);
+}
+
+.intt-org-tier--core .intt-org-node-dot {
+	background: var(--c-sustantivo);
+	box-shadow: 0 0 0 2px var(--c-sustantivo);
+}
+
+.intt-org-card {
+	background: var(--c-panel);
+	border: 1px solid var(--c-border);
+	border-radius: 10px;
+	padding: 14px 18px;
+	box-shadow: 0 1px 2px rgba(20, 20, 15, .04);
+	transition: transform .15s ease, box-shadow .15s ease;
+	max-width: 380px;
+}
+
+.intt-org-card:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 6px 16px rgba(20, 20, 15, .08);
+}
+
+.intt-org-card--empty {
+	visibility: hidden;
+	box-shadow: none;
+	border: none;
+}
+
+.intt-org-name {
+	font-weight: 700;
+	font-size: 14.5px;
+	line-height: 1.3;
+	margin: 0 0 3px;
+}
+
+.intt-org-role {
+	font-weight: 600;
+	font-size: 11px;
+	letter-spacing: .04em;
+	text-transform: uppercase;
+	margin: 0;
+}
+
+.intt-org-tier--exec    .intt-org-role { color: var(--c-estrategico); }
+.intt-org-tier--support .intt-org-role { color: var(--c-asesoria); }
+.intt-org-tier--core    .intt-org-role { color: var(--c-sustantivo); }
+
+.intt-org-row .intt-org-card--left  { justify-self: end;   text-align: right; }
+.intt-org-row .intt-org-card--right { justify-self: start; text-align: left; }
+
+@media (max-width: 640px) {
+	.intt-org-spine { display: none; }
+
+	.intt-org-row {
+		grid-template-columns: 1fr;
+		gap: 14px;
+	}
+
+	.intt-org-row::before { display: none; }
+
+	.intt-org-node-dot {
+		justify-self: start;
+		margin-bottom: -8px;
+	}
+
+	.intt-org-row .intt-org-card--left,
+	.intt-org-row .intt-org-card--right {
+		justify-self: stretch;
+		text-align: left;
+		max-width: none;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.intt-org-card { transition: none; }
+}

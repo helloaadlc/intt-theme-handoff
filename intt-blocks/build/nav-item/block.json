@@ -1,0 +1,31 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "intt/nav-item",
+  "version": "0.1.0",
+  "title": "Ítem de Navegación",
+  "category": "theme",
+  "icon": "admin-links",
+  "description": "Enlace con ícono para la barra de navegación principal.",
+  "attributes": {
+    "url": {
+      "type": "string",
+      "default": ""
+    },
+    "label": {
+      "type": "string",
+      "default": ""
+    },
+    "icon": {
+      "type": "string",
+      "default": "location"
+    }
+  },
+  "supports": {
+    "html": false,
+    "reusable": false
+  },
+  "textdomain": "intt-blocks",
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php"
+}
