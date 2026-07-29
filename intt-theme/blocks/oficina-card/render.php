@@ -4,41 +4,52 @@ if ( ! function_exists( 'get_field' ) ) return;
 $post_id = $block->context['postId'] ?? get_the_ID();
 if ( ! $post_id ) return;
 
-$title     = get_the_title( $post_id );
-$direccion = get_field( 'direccion',        $post_id );
-$jefe      = get_field( '_jefe_de_oficina', $post_id );
-$instagram = get_field( 'instagram',        $post_id );
-$tiktok    = get_field( 'tiktok',           $post_id );
-$youtube   = get_field( 'youtube',          $post_id );
+$titulo    = get_the_title( $post_id );
+$municipio     = get_field( 'municipio',            $post_id );
+$direccion     = get_field( 'direccion',            $post_id );
+$horario       = get_field( 'horario_de_atencion',  $post_id );
+$dias          = get_field( 'dias',                 $post_id );
+$grupo_mapa    = get_field( 'ubicacion_en_el_mapa', $post_id );
+$ubicacion_url = ! empty( $grupo_mapa['url_de_google_maps'] ) ? $grupo_mapa['url_de_google_maps'] : '';
+$coordenadas   = ! empty( $grupo_mapa['coordenadas'] )        ? $grupo_mapa['coordenadas']        : '';
 
-$x_raw = get_field( '_x', $post_id );
-$x_url = is_array( $x_raw ) ? ( $x_raw['url'] ?? '' ) : (string) $x_raw;
+$terminos = get_the_terms( $post_id, 'estado' );
+$estado   = ( $terminos && ! is_wp_error( $terminos ) ) ? $terminos[0]->name : '';
 
-$social_items = '';
-if ( $x_url )     $social_items .= '<!-- wp:social-link {"url":"' . esc_url( $x_url )     . '","service":"x"} /-->';
-if ( $instagram ) $social_items .= '<!-- wp:social-link {"url":"' . esc_url( $instagram ) . '","service":"instagram"} /-->';
-if ( $tiktok )    $social_items .= '<!-- wp:social-link {"url":"' . esc_url( $tiktok )    . '","service":"tiktok"} /-->';
-if ( $youtube )   $social_items .= '<!-- wp:social-link {"url":"' . esc_url( $youtube )   . '","service":"youtube"} /-->';
+$mapa_url = '';
+if ( $ubicacion_url ) {
+    $mapa_url = $ubicacion_url;
+} elseif ( $coordenadas ) {
+    $partes = array_map( 'trim', explode( ',', $coordenadas, 2 ) );
+    if ( 2 === count( $partes ) && is_numeric( $partes[0] ) && is_numeric( $partes[1] ) ) {
+        $mapa_url = 'https://www.google.com/maps/search/?api=1&query=' . rawurlencode( $partes[0] . ',' . $partes[1] );
+    }
+} elseif ( $direccion ) {
+    $mapa_url = 'https://www.google.com/maps/search/?api=1&query=' . rawurlencode( $direccion );
+}
 ?>
 <div class="intt-oficina-card">
 
-	<h3 class="wp-block-heading has-heading-4-font-size"><?php echo esc_html( $title ); ?></h3>
+	<h3 class="wp-block-heading has-heading-4-font-size"><?php echo esc_html( $titulo ); ?></h3>
+
+	<?php if ( $estado || $municipio ) : ?>
+	<p class="intt-oficina-card__ubicacion"><?php echo esc_html( implode( ', ', array_filter( [ $estado, $municipio ] ) ) ); ?></p>
+	<?php endif; ?>
 
 	<?php if ( $direccion ) : ?>
-	<p><?php echo esc_html( $direccion ); ?></p>
+	<p class="intt-oficina-card__direccion"><?php echo esc_html( $direccion ); ?></p>
 	<?php endif; ?>
 
-	<?php if ( $jefe ) : ?>
-	<p>Jefe de oficina: <?php echo esc_html( $jefe ); ?></p>
+	<?php if ( $horario ) : ?>
+	<p class="intt-oficina-card__horario"><?php echo esc_html( 'Horario de atención: ' . $horario ); ?></p>
 	<?php endif; ?>
 
-	<?php if ( $social_items ) :
-		echo do_blocks(
-			'<!-- wp:social-links {"iconBackgroundColor":"gris-600","iconBackgroundColorValue":"#757575","size":"has-small-icon-size"} -->' .
-			'<ul class="wp-block-social-links has-small-icon-size has-icon-background-color">' .
-			$social_items .
-			'</ul><!-- /wp:social-links -->'
-		);
-	endif; ?>
+	<?php if ( $dias ) : ?>
+	<p class="intt-oficina-card__dias"><?php echo esc_html( 'Días: ' . $dias ); ?></p>
+	<?php endif; ?>
+
+	<?php if ( $mapa_url ) : ?>
+	<a class="intt-oficina-card__mapa" href="<?php echo esc_url( $mapa_url ); ?>" target="_blank" rel="noopener noreferrer">Ver en el mapa</a>
+	<?php endif; ?>
 
 </div>
