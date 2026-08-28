@@ -55,23 +55,7 @@ return array(
 		'editorScript' => 'file:./index.js',
 		'render' => 'file:./render.php'
 	),
-	'organization-chart' => array(
-		'$schema' => 'https://schemas.wp.org/trunk/block.json',
-		'apiVersion' => 3,
-		'name' => 'intt/organization-chart',
-		'title' => 'Organigrama INTT',
-		'category' => 'theme',
-		'icon' => 'networking',
-		'description' => 'Organigrama institucional con niveles jerárquicos y columnas auto-balanceadas.',
-		'textdomain' => 'intt-blocks',
-		'supports' => array(
-			'html' => false,
-			'align' => array( 'wide', 'full' ),
-		),
-		'style' => 'file:./style.css',
-		'render' => 'file:./render.php',
-	),
-	'nav-item' => array(
+'nav-item' => array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 3,
 		'name' => 'intt/nav-item',

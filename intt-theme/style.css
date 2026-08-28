@@ -11,108 +11,108 @@ Text Domain: intt-theme
 /* ── Barra de navegación principal ───────────────────────────────────────── */
 
 .intt-site-nav .alignwide.is-layout-flex {
-	min-height: 78px;
-	align-items: stretch;
+    min-height: 78px;
+    align-items: stretch;
 }
 
 .intt-site-nav .wp-block-site-logo,
 .intt-site-nav .wp-block-site-logo a {
-	display: flex;
-	align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .intt-site-nav .wp-block-group.is-nowrap:not(.alignwide) {
-	align-items: stretch;
+    align-items: stretch;
 }
 
 .intt-site-nav .wp-block-buttons {
-	display: flex;
-	align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 
-@media (max-width: 782px) {
-	.intt-site-nav .wp-block-buttons {
-		display: none;
-	}
+@media (max-width: 783px) {
+    .intt-site-nav .wp-block-buttons {
+        display: none;
+    }
 }
 
 
 /* ── Barra de alerta ──────────────────────────────────────────────────────── */
 
 .intt-alert {
-	width: 100%;
+    width: 100%;
 }
 
 .intt-alert__inner {
-	display: flex;
-	align-items: flex-start;
-	justify-content: space-between;
-	gap: var(--wp--preset--spacing--sp-16);
-	max-width: var(--wp--style--global--wide-size);
-	margin-inline: auto;
-	padding: var(--wp--preset--spacing--sp-40) var(--wp--preset--spacing--sp-24);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--wp--preset--spacing--sp-16);
+    max-width: var(--wp--style--global--wide-size);
+    margin-inline: auto;
+    padding: var(--wp--preset--spacing--sp-40) var(--wp--preset--spacing--sp-24);
 }
 
 .intt-alert__main {
-	display: flex;
-	flex-direction: column;
-	gap: var(--wp--preset--spacing--sp-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--wp--preset--spacing--sp-8);
 }
 
 .intt-alert__header {
-	display: flex;
-	align-items: center;
-	gap: var(--wp--preset--spacing--sp-8);
+    display: flex;
+    align-items: center;
+    gap: var(--wp--preset--spacing--sp-8);
 }
 
 .intt-alert__icon {
-	flex-shrink: 0;
-	display: flex;
+    flex-shrink: 0;
+    display: flex;
 }
 
 .intt-alert__title {
-	font-weight: 600;
-	font-size: var(--wp--preset--font-size--heading-4);
+    font-weight: 600;
+    font-size: var(--wp--preset--font-size--heading-4);
 }
 
 .intt-alert__body {
-	margin: 0;
-	font-size: var(--wp--preset--font-size--body-1);
+    margin: 0;
+    font-size: var(--wp--preset--font-size--body-1);
 }
 
 .intt-alert__close {
-	flex-shrink: 0;
-	background: none;
-	border: none;
-	cursor: pointer;
-	font-size: var(--wp--preset--font-size--heading-3);
-	padding: 0;
-	color: inherit;
-	opacity: 0.7;
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: var(--wp--preset--font-size--heading-3);
+    padding: 0;
+    color: inherit;
+    opacity: 0.7;
 }
 
 .intt-alert__close:hover {
-	opacity: 1;
+    opacity: 1;
 }
 
 .intt-alert--info {
-	background-color: var(--wp--preset--color--azul-electrico-50);
-	color: var(--wp--preset--color--azul-electrico-700);
+    background-color: var(--wp--preset--color--azul-electrico-50);
+    color: var(--wp--preset--color--azul-electrico-700);
 }
 
 .intt-alert--warning {
-	background-color: var(--wp--preset--color--amarillo-oro-50);
-	color: var(--wp--preset--color--amarillo-oro-800);
+    background-color: var(--wp--preset--color--amarillo-oro-50);
+    color: var(--wp--preset--color--amarillo-oro-800);
 }
 
 .intt-alert--emergency {
-	background-color: var(--wp--preset--color--rojo-carmesi-50);
-	color: var(--wp--preset--color--rojo-carmesi-700);
+    background-color: var(--wp--preset--color--rojo-carmesi-50);
+    color: var(--wp--preset--color--rojo-carmesi-700);
 }
 
 .intt-alert-dismissed .intt-alert {
-	display: none;
+    display: none;
 }
 
 /* ── Hero: tipografía responsiva ─────────────────────────────────────────── */
@@ -129,7 +129,7 @@ Text Domain: intt-theme
 .intt-radio__titulo {
     font-size: clamp(2.25rem, 3vw + 1rem, 3.4rem) !important;
     max-width: 12ch;
-		font-weight: 700;
+    font-weight: 700;
 }
 
 /* ── Tarjetas de trámite ──────────────────────────────────────────────────── */
@@ -138,7 +138,7 @@ Text Domain: intt-theme
     overflow: hidden;
     border-radius: var(--wp--custom--radius--lg);
     border: 1px solid var(--wp--preset--color--gris-300);
-    background: white;
+    background: var(--wp--preset--color--white);
     display: flex;
     flex-direction: column;
 }
@@ -159,18 +159,81 @@ Text Domain: intt-theme
 }
 
 
-/* ── Grids de trámites: responsividad ────────────────────────────────────── */
+/* ── Grid de trámites destacados ────────────────────────────────────────── */
 
-@media (max-width: 781px) {
+/*
+ * Reglas del grid centralizadas aquí (no inline en los render.php de
+ * ciudadanos-destacados y empresas-destacados) para que las media queries
+ * puedan sobrescribir sin `!important`. Los bloques solo aplican la clase
+ * `.intt-grid-tramites`; el layout completo vive en este archivo.
+ */
+.intt-grid-tramites {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--wp--preset--spacing--sp-24);
+}
+
+/*
+ * Frontera móvil/escritorio: 784px. Se declara como par max-width:783 +
+ * min-width:784 en el resto del archivo para no dejar gap de 1px. Acá solo
+ * necesitamos el lado max porque el default (4 cols) actúa como estilo
+ * escritorio.
+ */
+@media (max-width: 783px) {
     .intt-grid-tramites {
-        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
 @media (max-width: 479px) {
     .intt-grid-tramites {
-        grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+        grid-template-columns: repeat(1, minmax(0, 1fr));
     }
+}
+
+
+/* ── Panel megamenú ──────────────────────────────────────────────────────── */
+
+/*
+ * El wp:template-part que envuelve megamenu-nav.html no lleva clase align*,
+ * por lo que las reglas de layout constrained lo encogen a content-size (620 px).
+ * display:contents lo hace transparente al box model: el grupo Columnas queda
+ * como hijo virtual directo del panel constrained y recupera el tratamiento
+ * alignwide (max-width: wide-size) sin tocar el markup del part.
+ */
+.intt-megamenu>.wp-block-template-part {
+    max-width: var(--wp--style--global--wide-size);
+    margin-inline: auto;
+}
+
+/* ── Inicio: acceso rápido a la cuenta ──────────────────────────────────── */
+
+.intt-acceso-cols>.wp-block-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.intt-acceso-item {
+    position: relative;
+    flex: 1;
+    gap: var(--wp--preset--spacing--sp-16);
+}
+
+.intt-acceso-item svg {
+    flex-shrink: 0;
+}
+
+.intt-acceso-item p {
+    margin: 0;
+}
+
+.intt-acceso-item p a {
+    font-weight: inherit;
+}
+
+.intt-acceso-item a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
 }
 
 /* ── Pie de página: listas de navegación ────────────────────────────────── */
@@ -182,7 +245,15 @@ Text Domain: intt-theme
 
 /* ── Taxonomía: barra lateral y lista ────────────────────────────────────── */
 
+.intt-taxonomy-sidebar {
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
+    padding-right: var(--wp--preset--spacing--sp-24);
+}
+
 .intt-taxonomy-sidebar .wp-block-heading {
+    margin-block-start: var(--wp--preset--spacing--sp-16);
     margin-block-end: var(--wp--preset--spacing--sp-16);
 }
 
@@ -192,8 +263,8 @@ Text Domain: intt-theme
     padding-left: 0;
 }
 
-.wp-block-categories .current-cat > a,
-.intt-estado-list .current-cat > a {
+.wp-block-categories .current-cat>a,
+.intt-estado-list .current-cat>a {
     color: var(--wp--preset--color--azul-electrico-600);
     font-weight: 600;
 }
@@ -204,26 +275,47 @@ Text Domain: intt-theme
 
 .intt-estado-list {
     list-style: none;
-    margin: 0;
     padding: 0;
+    margin: 0;
+    margin-inline-start: calc(-1 * var(--wp--preset--spacing--sp-16));
 }
 
-.intt-oficina-card > * {
+.intt-estado-list a {
+    display: block;
+    padding: var(--wp--preset--spacing--sp-8) var(--wp--preset--spacing--sp-16);
+    border-radius: var(--wp--custom--radius--sm);
+    text-decoration: none;
+    transition: background-color 0.15s ease;
+}
+
+.intt-estado-list a:hover,
+.intt-estado-list a:focus-visible {
+    background-color: var(--wp--preset--color--gris-100);
+}
+
+.intt-oficina-card>* {
     margin-block-start: 0;
     margin-block-end: 0;
 }
 
-.intt-oficina-card > * + * {
+.intt-oficina-card>*+* {
     margin-block-start: var(--wp--preset--spacing--sp-8);
 }
 
-@media (max-width: 782px) {
+.wp-block-post-excerpt__excerpt strong {
+    background-color: var(--wp--preset--color--amarillo-oro-100);
+    font-weight: 600;
+    padding: 0 2px;
+    border-radius: var(--wp--custom--radius--xs);
+}
+
+@media (max-width: 783px) {
     .intt-taxonomy-sidebar {
         display: none;
     }
 }
 
-@media (min-width: 783px) {
+@media (min-width: 784px) {
     .intt-tramite-list {
         max-width: 60%;
     }
@@ -233,11 +325,22 @@ Text Domain: intt-theme
     .intt-noticias-item {
         flex-direction: column;
     }
+
     .intt-noticias-item .wp-block-post-featured-image {
         flex-basis: auto !important;
         width: 100% !important;
         max-width: 100% !important;
     }
+}
+
+/* ── Inicio: panel "ver más" de otros trámites ──────────────────────────── */
+
+.intt-otros-panel {
+    display: none;
+}
+
+.intt-otros-panel.is-open {
+    display: block;
 }
 
 /* Filtro de estados — página de oficinas */
@@ -256,3 +359,132 @@ Text Domain: intt-theme
     margin-top: var(--wp--preset--spacing--sp-16);
 }
 
+
+/* ── Biblioteca de Documentos ─────────────────────────────────────────────── */
+
+.intt-biblioteca {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wp--preset--spacing--sp-48);
+}
+
+.intt-biblioteca__seccion {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wp--preset--spacing--sp-24);
+}
+
+.intt-biblioteca__titulo {
+    margin: 0;
+    padding-bottom: var(--wp--preset--spacing--sp-16);
+}
+
+.intt-biblioteca__lista {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wp--preset--spacing--sp-16);
+}
+
+.intt-doc-item {
+    display: flex;
+    align-items: center;
+    gap: var(--wp--preset--spacing--sp-16);
+    padding: var(--wp--preset--spacing--sp-16) var(--wp--preset--spacing--sp-24);
+    border: 1px solid var(--wp--preset--color--gris-300);
+    border-radius: 8px;
+    background: var(--wp--preset--color--white);
+}
+
+.intt-doc-item__icono {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+}
+
+.intt-doc-item__icono img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.intt-doc-item__body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--wp--preset--spacing--sp-8);
+}
+
+.intt-doc-item__titulo {
+    margin: 0;
+}
+
+.intt-doc-item__titulo a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.intt-doc-item__titulo a:hover {
+    text-decoration: underline;
+}
+
+.intt-doc-item__meta {
+    margin: 0;
+    color: var(--wp--preset--color--gris-600);
+}
+
+.intt-doc-item__accion {
+    flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+    .intt-doc-item {
+        flex-wrap: wrap;
+    }
+
+    .intt-doc-item__body {
+        flex-basis: calc(100% - 40px - var(--wp--preset--spacing--sp-16));
+    }
+
+    .intt-doc-item__accion {
+        flex-basis: 100%;
+    }
+
+    .intt-doc-item__accion .wp-block-button__link {
+        display: block;
+        text-align: center;
+    }
+}
+
+
+/* ── Dropdown de Relevanssi Live Ajax Search ─────────────────────────────── */
+
+/*
+ * El plugin posiciona el dropdown con JS y calcula su `width` a partir del
+ * <input>, no del contenedor visible `.wp-block-search__inside-wrapper`.
+ * El input siempre es ligeramente más angosto que el wrapper (deja espacio
+ * para el botón lupa al lado), así que el dropdown queda más corto que la
+ * barra de búsqueda visible.
+ *
+ * El plugin no expone un filtro para cambiar qué elemento mide, y el
+ * dropdown vive en <body> (ver inc/search.php: `relevanssi_live_search_add_result_div`)
+ * así que no podemos usar `width: 100%` referenciado al wrapper. Sin
+ * inyectar JS, la salida más simple es forzar el ancho al `contentSize`
+ * del tema.
+ *
+ * IMPORTANTE: si `theme.json > settings.layout.contentSize` cambia, hay
+ * que actualizar el 800px de abajo — no hay forma de referenciarlo desde
+ * CSS porque WordPress no lo expone como custom property.
+ * El `max-width` en calc() previene overflow en viewports estrechos.
+ */
+.relevanssi-live-search-results {
+    width: 800px !important;
+    max-width: calc(100vw - var(--wp--preset--spacing--sp-24) * 2) !important;
+    box-sizing: border-box;
+    /* Compensa el padding interno del wrapper de wp:search (4px) para que
+         el borde izquierdo del dropdown alinee con el borde de la barra. */
+    transform: translateX(-4px);
+}

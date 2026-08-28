@@ -3,11 +3,12 @@
 > **⚠️ El orden de los pasos no es opcional.**
 > Antes de importar el archivo XML, deben estar activos:
 > - **ACF Pro** y el **tema `intt-theme`** — juntos registran los tipos de contenido
->   `oficina` y `tramite` (definidos en `intt-theme/acf-json/`).
+>   `oficina`, `tramite` y `documento` (definidos en `intt-theme/acf-json/`).
 > - El **tema** también registra el tipo de contenido `alerta_intt`.
 >
 > Si se importa el XML antes de activar ambos, WordPress descartará silenciosamente
-> los 155+ registros de `oficina`, `tramite` y `alerta_intt`, sin mostrar ninguna advertencia.
+> los cientos de registros de `oficina`, `tramite`, `documento` y `alerta_intt`, sin
+> mostrar ninguna advertencia.
 
 
 ## 1. Contenido del paquete
@@ -15,10 +16,10 @@
 | Archivo / carpeta | Descripción |
 |---|---|
 | `intt-theme/` | Tema de bloques (FSE). Incluye `acf-json/`, que registra tipos de contenido, taxonomías y campos. |
-| `intt-blocks/` | Plugin propio. Aporta cuatro bloques personalizados (megamenu, megamenu-col, nav-item, organization-chart). No interviene en la importación. |
+| `intt-blocks/` | Plugin propio. Aporta tres bloques personalizados (megamenu, megamenu-col, nav-item). No interviene en la importación. |
 | `uploads/` | Copia de respaldo de los archivos multimedia (ver sección 4). |
 | `advanced-custom-fields-pro.zip` | Instalador de ACF Pro. |
-| `intt.WordPress.2026-07-20.xml` | Contenido exportado en formato WXR. |
+| `intt.WordPress.2026-08-28.xml` | Contenido exportado en formato WXR. |
 
 **Requisitos:** WordPress 6.5+, PHP 8.0+, ACF Pro (incluido).
 
@@ -48,7 +49,7 @@ intt-blocks/  →  wp-content/plugins/intt-blocks/
 
 **Apariencia → Temas** → activar **INTT Theme**.
 
-*Verificación:* deben aparecer **Oficinas** y **Trámites** en el menú lateral. Si no aparecen, no continuar.
+*Verificación:* deben aparecer **Oficinas**, **Trámites** y **Documentos** en el menú lateral. Si no aparecen, no continuar.
 
 **Paso 4 — Activar el plugin**
 
@@ -63,7 +64,7 @@ bloques rotos.
 **Paso 5 — Importar el contenido**
 
 1. **Herramientas → Importar** → instalar y ejecutar el importador de **WordPress**.
-2. Seleccionar `intt.WordPress.2026-07-20.xml`.
+2. Seleccionar `intt.WordPress.2026-08-28.xml`.
 3. En la asignación de autores, asignar el contenido a un usuario administrador de INTT.
 4. **Marcar la casilla "Descargar e importar archivos adjuntos".**
 5. Ejecutar la importación.
@@ -73,14 +74,15 @@ bloques rotos.
 
 | Elemento | Cantidad esperada |
 |---|---|
-| Oficinas | 76 |
-| Trámites | 78 |
+| Oficinas | 75 |
+| Trámites | 88 |
+| Documentos | 135 |
 | Alertas | 1 |
-| Páginas | 7 |
+| Páginas | 11 |
 | Entradas | 4 |
-| Medios | 16 |
+| Medios | 158 |
 
-Además: abrir una oficina y un trámite y confirmar que los campos personalizados tienen datos; revisar el front-end; y comprobar en **Apariencia → Editor** que las plantillas cargan correctamente.
+Además: abrir una oficina, un trámite y un documento y confirmar que los campos personalizados tienen datos; revisar el front-end (`/`, `/tramites/`, `/oficinas/`, `/biblioteca/`, `/buscar/`); y comprobar en **Apariencia → Editor** que las plantillas cargan correctamente.
 
 > En **ACF → Grupos de campos** puede aparecer el aviso *"Sincronización disponible"*.
 > Es normal y se puede sincronizar sin riesgo.
@@ -88,11 +90,11 @@ Además: abrir una oficina y un trámite y confirmar que los campos personalizad
 
 ## 4. Archivos multimedia
 
-El XML referencia las imágenes por URL, así que se descargan automáticamente al marcar
-la casilla del paso 5.
+El XML referencia las imágenes y PDFs por URL, así que se descargan automáticamente al
+marcar la casilla del paso 5.
 
 Si no aparecen, copiar el contenido de `uploads/` a `wp-content/uploads/` respetando la
-estructura de subcarpetas, y usar un plugin como **Media Sync** para registrarlas en la
+estructura de subcarpetas, y usar un plugin como **Media Sync** para registrarlos en la
 biblioteca de medios.
 
 
@@ -111,12 +113,17 @@ biblioteca de medios.
 - **Tema de bloques (FSE):** las plantillas se editan desde **Apariencia → Editor**, no
   mediante archivos PHP.
 
+- **Búsqueda con Relevanssi:** el sitio depende del plugin **Relevanssi** (versión gratuita)
+  para el buscador global (`/buscar/`) y los buscadores específicos de trámites y oficinas.
+  Instalar desde el directorio oficial de plugins. Sin él, el buscador funciona pero sin
+  highlighting ni ranking por relevancia.
+
 
 ## Resumen del orden
 
 ```
 1. Copiar intt-theme/ y intt-blocks/
-2. Instalar + activar ACF Pro   ← necesario para oficina y tramite
+2. Instalar + activar ACF Pro   ← necesario para oficina, tramite y documento
 3. Activar el tema              ← carga acf-json (campos, taxonomías) + registra alerta_intt
 4. Activar el plugin            ← bloques del editor (no afecta la importación)
 5. Importar el XML              ← SIEMPRE AL FINAL

@@ -3,6 +3,7 @@ $posts = get_posts( [
     'post_type'      => 'tramite',
     'post_status'    => 'publish',
     'posts_per_page' => 4,
+    'orderby'        => [ 'menu_order' => 'ASC', 'title' => 'ASC' ],
     'meta_query'     => [
         [
             'key'     => 'destacados_empresas_y_operadores',
@@ -20,7 +21,8 @@ if ( empty( $posts ) ) {
 
     <p style="text-transform:uppercase;margin-top:0;margin-bottom:0">Empresas y Operadores</p>
 
-    <div class="wp-block-group intt-grid-tramites is-layout-grid wp-block-group-is-layout-grid" style="grid-template-columns:repeat(4, minmax(0, 1fr));gap:var(--wp--preset--spacing--sp-24)">
+    <?php // Layout responsivo (4→2→1 cols) definido en style.css > .intt-grid-tramites. ?>
+    <div class="wp-block-group intt-grid-tramites is-layout-grid wp-block-group-is-layout-grid">
 
         <?php foreach ( $posts as $post ) :
             $imagen = get_field( 'imagen_destacada', $post->ID );

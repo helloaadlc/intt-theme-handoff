@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.code-workspace
+
+# Environment / secrets
+.env
+.env.*
+
+# PDFs descargados durante la migracion one-off de la Biblioteca
+tools/biblioteca-migration/pdfs-descargados/
+
+# Notas de pre-entrega (workspace local)
+PRE-HANDOFF.md

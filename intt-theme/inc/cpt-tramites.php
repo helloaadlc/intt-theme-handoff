@@ -12,6 +12,15 @@ function intt_registrar_cpt_tramites() {
     add_rewrite_tag( '%tipo_tramite%', '([^/]+)', 'tipo_tramite=' );
 }
 
+// ── Soporte de "Orden" (menu_order) ──────────────────────────────────────────
+// Habilita el panel "Atributos de la página" en el editor del CPT tramite para
+// que el editor pueda asignar prioridad numérica a las tarjetas destacadas.
+// Prioridad 20 asegura que corra después del register_post_type de ACF.
+
+add_action( 'init', function () {
+    add_post_type_support( 'tramite', 'page-attributes' );
+}, 20 );
+
 // ── Rewrite slug: ACF no soporta tokens en el slug, se corrige aquí ──────────
 // ACF registra el CPT con slug plano "tramites". Este filtro lo reemplaza por
 // "tramites/%tipo_tramite%" antes de que WordPress procese el rewrite, evitando
@@ -80,10 +89,37 @@ function intt_ocultar_columna_desc_corta() {
 add_filter( 'get_the_excerpt', function ( $excerpt, $post = null ) {
     $post = $post ?: get_post();
     if ( ! $post || get_post_type( $post ) !== 'tramite' ) return $excerpt;
+
+    // Highlight de términos con Relevanssi es solo para frontend en resultados
+    // de búsqueda. En admin y fuera de búsqueda devolvemos la descripcion cruda.
+    if ( ! is_admin() && is_search() && function_exists( 'relevanssi_do_excerpt' ) ) {
+        $query = trim( get_search_query() );
+        if ( '' !== $query ) return relevanssi_do_excerpt( $post, $query );
+    }
+
     $desc = get_field( 'descripcion_corta', $post->ID );
     if ( ! empty( $desc ) ) return $desc;
     return $excerpt;
 }, 10, 2 );
+
+// Le indica a Relevanssi que use descripcion_corta como fuente al construir
+// su snippet, en lugar del post_content (que solo tiene listas de requisitos).
+add_filter( 'relevanssi_excerpt_content', function ( $content, $post ) {
+    if ( ! $post || get_post_type( $post ) !== 'tramite' ) return $content;
+    $desc = get_field( 'descripcion_corta', $post->ID );
+    return $desc ?: $content;
+}, 10, 2 );
+
+// El bloque wp:post-excerpt pasa el excerpt por wp_trim_words(), que a su vez
+// llama wp_strip_all_tags(). Esto elimina los <strong> que Relevanssi puso al
+// resaltar los términos. Preservamos el HTML original cuando estamos en
+// búsqueda y detectamos highlighting activo.
+add_filter( 'wp_trim_words', function ( $text, $num_words, $more, $original_text ) {
+    if ( is_search() && false !== strpos( $original_text, '<strong>' ) ) {
+        return $original_text;
+    }
+    return $text;
+}, 10, 4 );
 
 // ── Orden A-Z en el archivo del CPT y en páginas de taxonomía ────────────────
 
@@ -92,6 +128,7 @@ add_action( 'pre_get_posts', 'intt_ordenar_tramites_az' );
 function intt_ordenar_tramites_az( $query ) {
     if ( is_admin() || ! $query->is_main_query() ) return;
     if ( ! $query->is_post_type_archive( 'tramite' ) && ! $query->is_tax( 'tipo_tramite' ) ) return;
+    if ( $query->is_search() ) return;
 
     $query->set( 'orderby', 'title' );
     $query->set( 'order', 'ASC' );
@@ -111,7 +148,10 @@ function intt_resolver_permalink_tramite( $url, $post ) {
         return str_replace( '%tipo_tramite%', 'sin-categoria', $url );
     }
 
-    // Ordenar por term_id ASC para resultado predecible cuando hay varios términos
+    // Ordenar por term_id ASC para permalinks estables cuando un trámite tiene
+    // varios términos: sin este orden, WordPress puede devolver los términos en
+    // orden variable y el slug del permalink cambiaría según cuál gane el sort,
+    // rompiendo URLs indexadas y compartidas.
     $terms_sorted = wp_list_sort( $terms, [ 'term_id' => 'ASC' ] );
     $slug         = reset( $terms_sorted )->slug;
 

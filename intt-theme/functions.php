@@ -1,6 +1,15 @@
 <?php
 add_action( 'wp_enqueue_scripts', function () {
     wp_enqueue_style( 'intt-style', get_stylesheet_uri(), [], filemtime( get_template_directory() . '/style.css' ) );
+    if ( is_front_page() ) {
+        wp_enqueue_script(
+            'intt-inicio',
+            get_template_directory_uri() . '/assets/js/inicio.js',
+            [],
+            filemtime( get_template_directory() . '/assets/js/inicio.js' ),
+            true
+        );
+    }
     wp_enqueue_style(
         'tom-select',
         'https://cdn.jsdelivr.net/npm/tom-select@2.6.1/dist/css/tom-select.min.css',
@@ -27,9 +36,15 @@ add_action( 'init', function () {
 
 require_once get_template_directory() . '/inc/synced-patterns.php';
 require_once get_template_directory() . '/inc/cpt-tramites.php';
+require_once get_template_directory() . '/inc/cpt-oficinas.php';
+require_once get_template_directory() . '/inc/cpt-documento.php';
 require_once get_template_directory() . '/inc/alert-bar.php';
 require_once get_template_directory() . '/inc/footer.php';
 require_once get_template_directory() . '/inc/default-pages.php';
+require_once get_template_directory() . '/inc/breadcrumbs.php';
+require_once get_template_directory() . '/inc/tramites-search.php';
+require_once get_template_directory() . '/inc/search.php';
+require_once get_template_directory() . '/inc/traducciones.php';
 
 add_action( 'admin_enqueue_scripts', function ( $hook ) {
     if ( $hook !== 'edit.php' ) return;
@@ -54,13 +69,14 @@ add_action( 'init', function () {
     register_block_type( get_template_directory() . '/blocks/tipo-tramite-list' );
     register_block_type( get_template_directory() . '/blocks/ciudadanos-destacados' );
     register_block_type( get_template_directory() . '/blocks/empresas-destacados' );
-    register_block_type( get_template_directory() . '/blocks/otros-destacados' );
     register_block_type( get_template_directory() . '/blocks/archivo-tramites-intro' );
+    register_block_type( get_template_directory() . '/blocks/biblioteca-list' );
 }, 5 );
 
 add_action( 'pre_get_posts', function ( $query ) {
     if ( is_admin() || ! $query->is_main_query() ) return;
     if ( ! $query->is_post_type_archive( 'oficina' ) && ! $query->is_tax( 'estado' ) ) return;
+    if ( $query->is_search() ) return;
     $query->set( 'orderby', 'title' );
     $query->set( 'order', 'ASC' );
     if ( $query->is_post_type_archive( 'oficina' ) ) {
@@ -71,11 +87,6 @@ add_action( 'pre_get_posts', function ( $query ) {
     }
 } );
 
-add_action( 'pre_get_posts', function ( $query ) {
-    if ( is_admin() || ! $query->is_main_query() ) return;
-    if ( ! $query->is_post_type_archive( 'tramite' ) && ! $query->is_tax( 'tipo_tramite' ) ) return;
-    $query->set( 'posts_per_page', 10 );
-} );
 
 // Allow SVG file uploads in WordPress
 function custom_mime_types($mimes) {
